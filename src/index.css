@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+/* Import Archivo from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap');
+
+/* Apply globally */
+body {
+  font-family: 'Archivo', system-ui, sans-serif;
+  color: #e5e7eb; /* Tailwind gray-200 for light text */
+  background-color: #0f0f0f; /* Black background */
+}
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f1f1f; /* dark gray track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4b5563; /* medium gray thumb */
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af; /* lighter gray on hover */
+}
+
+/* Firefox support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #4b5563 #1f1f1f; /* thumb | track */
+}
