@@ -49,7 +49,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-[#1f1f1f] text-white relative z-50 font-[Inter]">
+    <nav className="bg-[#1f1f1f] text-white relative z-50">
       {/* Overlay */}
       <div
         className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300 ${
