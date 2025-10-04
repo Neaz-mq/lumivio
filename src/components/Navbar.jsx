@@ -1,109 +1,217 @@
-import { useState } from "react";
-import { FaFacebookF, FaXTwitter, FaLinkedinIn, FaBehance } from "react-icons/fa6";
-import { IoMdClose } from "react-icons/io";
+import { useState, useEffect } from "react";
+import {
+  FaFacebookF,
+  FaXTwitter,
+  FaLinkedinIn,
+  FaBehance,
+} from "react-icons/fa6";
+
+// Inline Close Icon
+const CloseIcon = (props) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2.5}
+      d="M6 18L18 6M6 6l12 12"
+    />
+  </svg>
+);
+
+const SocialIconContainer = ({ children }) => (
+  <div className="border border-gray-600 p-3 rounded-full hover:bg-lime-400 hover:text-black transition duration-200">
+    {children}
+  </div>
+);
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isMainMenuOpen, setIsMainMenuOpen] = useState(false);
+  const [isContactMenuOpen, setIsContactMenuOpen] = useState(false);
+
+  const isMenuOpen = isMainMenuOpen || isContactMenuOpen;
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
+  const closeMenus = () => {
+    setIsMainMenuOpen(false);
+    setIsContactMenuOpen(false);
+  };
 
   return (
-    <nav className="bg-[#1f1f1f] text-white relative z-50">
-      {/* Blur overlay for rest of the content */}
+    <nav className="bg-[#1f1f1f] text-white relative z-50 font-[Inter]">
+      {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-black/20 backdrop-blur-lg transition-opacity duration-300 z-40 ${
-          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300 ${
+          isMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         }`}
-        onClick={() => setIsOpen(false)}
+        onClick={closeMenus}
       ></div>
 
+      {/* Navbar Wrapper */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between relative z-50">
+        {/* Left Hamburger (Mobile) */}
+        <div className="md:hidden z-50">
+          <div
+            className="cursor-pointer flex flex-col gap-[5px] p-2 rounded-lg hover:bg-white/10 transition-colors"
+            onClick={() => setIsMainMenuOpen(true)}
+          >
+            <span className="w-5 h-[2px] bg-white rounded"></span>
+            <span className="w-6 h-[2px] bg-white rounded"></span>
+            <span className="w-4 h-[2px] bg-white rounded"></span>
+          </div>
+        </div>
+
         {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <div className="w-5 h-5 bg-lime-400 rotate-45"></div>
-          <span className="text-xl font-semibold">Lumivio</span>
-        </div>
-
-        {/* Center Nav Links */}
-        <div className="hidden md:flex space-x-6 text-sm font-medium">
-          <a href="#" className="hover:text-lime-400 transition-colors">Demos</a>
-          <a href="#" className="hover:text-lime-400 transition-colors">Pages</a>
-          <a href="#" className="hover:text-lime-400 transition-colors">Services</a>
-          <a href="#" className="hover:text-lime-400 transition-colors">Blog</a>
-          <a href="#" className="hover:text-lime-400 transition-colors">Contact</a>
-        </div>
-
-        {/* Hamburger Icon */}
         <div
-          className="z-50 cursor-pointer flex flex-col items-end gap-[5px]"
-          onClick={() => setIsOpen(true)}
+          className={`flex-1 flex justify-center md:justify-start items-center transition-all duration-300 ${
+            isContactMenuOpen ? "opacity-30  pointer-events-none" : ""
+          }`}
         >
-          <span className="w-4 h-[2px] bg-white rounded"></span>
-          <span className="w-6 h-[2px] bg-white rounded"></span>
-          <span className="w-3 h-[2px] bg-white rounded"></span>
+          <div className="flex items-center space-x-2">
+            <div className="w-5 h-5 bg-lime-400 rounded-lg transform -rotate-12 transition-transform duration-300 hover:rotate-6"></div>
+            <span className="text-2xl font-black tracking-tighter">
+              Lumivio
+            </span>
+          </div>
+        </div>
+
+        {/* Desktop Nav */}
+        <div
+          className={`absolute left-1/2 transform -translate-x-1/2 hidden md:flex space-x-8 text-lg font-medium transition-all duration-300 ${
+            isContactMenuOpen
+              ? "opacity-30  pointer-events-none"
+              : "pointer-events-auto"
+          }`}
+        >
+          {["Home", "About", "Work", "Team", "Testimonials"].map((item) => (
+            <a key={item} href="#" className="relative group transition-colors">
+              {item}
+              <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-lime-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left blur-[2px]"></span>
+            </a>
+          ))}
+        </div>
+
+        {/* Right Hamburger */}
+        <div className="z-50">
+          <div
+            className={`cursor-pointer flex flex-col items-end gap-[5px] p-2 rounded-lg hover:bg-white/10 transition-colors ${
+              isContactMenuOpen ? "hidden md:hidden" : "flex"
+            }`}
+            onClick={() => setIsContactMenuOpen(true)}
+          >
+            <span className="w-4 h-[2px] bg-white rounded"></span>
+            <span className="w-6 h-[2px] bg-white rounded"></span>
+            <span className="w-5 h-[2px] bg-white rounded"></span>
+          </div>
         </div>
       </div>
 
-      {/* Sidebar Panel */}
+      {/* Left Mobile Menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-[320px] bg-[#111] text-white p-6 z-50 transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 left-0 h-full w-64 max-w-[80vw] bg-[#111] text-white p-6 z-50 shadow-2xl md:hidden transform transition-transform duration-500 ease-in-out ${
+          isMainMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* Close Button */}
         <button
-          onClick={() => setIsOpen(false)}
-          className="absolute top-4 right-4 text-2xl cursor-pointer"
+          onClick={closeMenus}
+          className="absolute top-4 right-4 text-3xl cursor-pointer p-2 rounded-full hover:bg-white/10 transition-colors text-lime-400"
         >
-          <IoMdClose />
+          <CloseIcon className="w-6 h-6" />
         </button>
+        <h3 className="text-xl font-bold mb-8 border-b border-gray-700 pb-2">
+          Navigation
+        </h3>
+        <div className="space-y-6 text-xl font-medium">
+          {["Home", "Services", "About", "Work", "Team"].map((item) => (
+            <a
+              key={item}
+              href="#"
+              onClick={closeMenus}
+              className="block hover:text-lime-400"
+            >
+              {item}
+            </a>
+          ))}
+        </div>
+      </div>
 
-        {/* Sidebar Content */}
-        <div className="mt-8 space-y-6 text-base">
-          {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-5 h-5 bg-lime-400 rotate-45"></div>
-            <span className="text-xl font-semibold">Lumivio</span>
-          </div>
+      {/* Right Contact Menu */}
+      <div
+        className={`fixed top-0 right-0 h-full w-80 max-w-[80vw] bg-[#111] text-white p-8 z-50 shadow-2xl overflow-y-auto transform transition-transform duration-500 ease-in-out ${
+          isContactMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <button
+          onClick={closeMenus}
+          className="absolute top-4 right-4 text-3xl cursor-pointer p-2 rounded-full hover:bg-white/10 transition-colors text-lime-400"
+        >
+          <CloseIcon className="w-6 h-6" />
+        </button>
+        <h3 className="text-2xl font-bold mb-10 border-b border-lime-400/50 pb-2 text-lime-400">
+          Get in Touch
+        </h3>
 
-          {/* Contact Info */}
+        <div className="space-y-8 text-base">
           <div>
-            <h4 className="font-semibold text-lg uppercase tracking-wide">Address</h4>
-            <p className="text-gray-300 text-base">California, TX 70240</p>
+            <h4 className="font-bold text-lg uppercase tracking-wider mb-1">
+              Address
+            </h4>
+            <p className="text-gray-400">123 Design Blvd, Bogura, TX 70240</p>
           </div>
-
           <div>
-            <h4 className="font-semibold text-lg uppercase tracking-wide">Email</h4>
-            <p className="text-gray-300 text-base">support@validtheme.com</p>
+            <h4 className="font-bold text-lg uppercase tracking-wider mb-1">
+              Email
+            </h4>
+            <p className="text-lime-400">info@lumivio.com</p>
           </div>
-
           <div>
-            <h4 className="font-semibold text-lg uppercase tracking-wide">Contact</h4>
-            <p className="text-gray-300 text-base">+44-20-7328-4499</p>
+            <h4 className="font-bold text-lg uppercase tracking-wider mb-1">
+              Contact
+            </h4>
+            <p className="text-gray-400">+880-178-5286-936</p>
           </div>
 
           {/* Subscribe */}
-          <div className="pt-4">
-            <h4 className="font-semibold text-lg mb-2">Get Subscribed!</h4>
-            <form className="flex border border-gray-600">
+          <div className="pt-4 max-w-sm">
+            <h4 className="font-semibold text-lg mb-2 text-white">
+              Get Subscribed!
+            </h4>
+            <form className="flex items-center border border-white text-white">
               <input
                 type="email"
                 placeholder="Enter your e-mail"
-                className="bg-transparent flex-1 px-3 py-2 text-base focus:outline-none"
+                className="flex-1 bg-transparent px-4 py-2 text-sm placeholder-white focus:outline-none"
               />
               <button
                 type="submit"
-                className="px-4 bg-transparent hover:text-lime-400 transition"
+                className="w-12 h-12 flex items-center justify-center border-l border-white hover:bg-white hover:text-black transition duration-200"
               >
+                {/* Northeast Arrow Icon ↗ */}
                 <svg
-                  className="w-4 h-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5"
                   fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
                   viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
                 >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    d="M5 19L19 5M5 5h14v14"
                   />
                 </svg>
               </button>
@@ -111,30 +219,26 @@ const Navbar = () => {
           </div>
 
           {/* Social Icons */}
-          <div className="flex space-x-4 pt-4">
-            <a
-              href="#"
-              className="border border-gray-600 p-2 rounded-full hover:text-lime-400 transition"
-            >
-              <FaFacebookF />
+          <div className="flex space-x-3 pt-6">
+            <a href="#" className="text-white hover:text-black">
+              <SocialIconContainer>
+                <FaFacebookF />
+              </SocialIconContainer>
             </a>
-            <a
-              href="#"
-              className="border border-gray-600 p-2 rounded-full hover:text-lime-400 transition"
-            >
-              <FaXTwitter />
+            <a href="#" className="text-white hover:text-black">
+              <SocialIconContainer>
+                <FaXTwitter />
+              </SocialIconContainer>
             </a>
-            <a
-              href="#"
-              className="border border-gray-600 p-2 rounded-full hover:text-lime-400 transition"
-            >
-              <FaLinkedinIn />
+            <a href="#" className="text-white hover:text-black">
+              <SocialIconContainer>
+                <FaLinkedinIn />
+              </SocialIconContainer>
             </a>
-            <a
-              href="#"
-              className="border border-gray-600 p-2 rounded-full hover:text-lime-400 transition"
-            >
-              <FaBehance />
+            <a href="#" className="text-white hover:text-black">
+              <SocialIconContainer>
+                <FaBehance />
+              </SocialIconContainer>
             </a>
           </div>
         </div>
