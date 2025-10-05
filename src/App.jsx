@@ -1,37 +1,35 @@
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useState } from "react";
+import Lenis from "@studio-freight/lenis";
 import Navbar from "./components/Navbar";
 import Loader from "./components/Loader";
 import Hero from "./components/Hero";
 import ScrollToTop from "./components/ScrollToTop";
 import About from "./components/About";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const App = () => {
-  const sectionsRef = useRef([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    sectionsRef.current.forEach((section) => {
-      gsap.fromTo(
-        section,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+    useEffect(() => {
+    // Initialize Lenis
+    const lenis = new Lenis({
+      duration: 1.2, // default scrolling duration
+      smooth: true,
+      smoothTouch: false, // keep native feel on mobile
+      lerp: 0.1, // inertia (lower = smoother, higher = snappier)
     });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+    return () => {
+      lenis.destroy(); // cleanup on unmount
+    };
   }, []);
+
+
 
   return (
     <>
