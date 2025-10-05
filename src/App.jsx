@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "./components/Navbar";
 import Loader from "./components/Loader";
+import Hero from "./components/Hero";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,7 +37,9 @@ const App = () => {
       {!loading && (
         <div className="relative">
           <Navbar />
-          <main></main>
+          <main>
+            <Hero />
+          </main>
         </div>
       )}
     </>
