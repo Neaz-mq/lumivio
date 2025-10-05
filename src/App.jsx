@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Loader from "./components/Loader";
 import Hero from "./components/Hero";
 import ScrollToTop from "./components/ScrollToTop";
+import About from "./components/About";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,6 +41,7 @@ const App = () => {
           <Navbar />
           <main>
             <Hero />
+            <About />
           </main>
              <ScrollToTop />
         </div>
