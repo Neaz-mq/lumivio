@@ -9,9 +9,12 @@ const ScrollToTop = () => {
     const handleScroll = () => setVisible(window.scrollY > 300);
     window.addEventListener("scroll", handleScroll);
 
+    // snapshot the ref for cleanup
+    const currentRafId = rafId.current;
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      if (rafId.current) cancelAnimationFrame(rafId.current);
+      if (currentRafId) cancelAnimationFrame(currentRafId);
     };
   }, []);
 
@@ -32,3 +35,4 @@ const ScrollToTop = () => {
 };
 
 export default ScrollToTop;
+ 
