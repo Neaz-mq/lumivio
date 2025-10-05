@@ -60,7 +60,7 @@ const Hero = () => {
 
           {/* Bottom Card */}
           <div className="absolute -bottom-12 bg-white/10 backdrop-blur-lg rounded-2xl shadow-lg px-6 sm:px-8 py-4 sm:py-6 text-center text-white border border-white/20">
-            <h2 className="text-3xl sm:text-4xl font-extrabold">31K</h2>
+            <h2 className="text-3xl sm:text-4xl font-extrabold">3K</h2>
             <p className="text-xs sm:text-sm uppercase tracking-wide mt-1">
               Completed Projects
             </p>
