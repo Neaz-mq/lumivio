@@ -5,6 +5,7 @@ import Loader from "./components/Loader";
 import Hero from "./components/Hero";
 import ScrollToTop from "./components/ScrollToTop";
 import About from "./components/About";
+import Services from "./components/Services";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -40,6 +41,7 @@ const App = () => {
           <main>
             <Hero />
             <About />
+            <Services />
           </main>
              <ScrollToTop />
         </div>
