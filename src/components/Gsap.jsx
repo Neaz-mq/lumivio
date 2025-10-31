@@ -13,13 +13,15 @@ const Gsap = () => {
       const sections = sectionsRef.current;
       const isMobile = window.innerWidth < 768;
 
-      // Kill all previous triggers before rebuilding (important on resize)
+      // Kill old triggers (important for resize handling)
       ScrollTrigger.getAll().forEach((t) => t.kill());
 
       if (!isMobile) {
+        // Total scroll width for all sections
         const totalWidth = containerRef.current.scrollWidth;
         const endValue = totalWidth - window.innerWidth;
 
+        // Horizontal scroll animation
         const tween = gsap.to(sections, {
           xPercent: -100 * (sections.length - 1),
           ease: "none",
@@ -28,15 +30,14 @@ const Gsap = () => {
             pin: true,
             scrub: 1,
             snap: 1 / (sections.length - 1),
-            end: () => "+=" + endValue, // ✅ Correct distance for all sections
+            end: () => "+=" + endValue,
           },
         });
 
-        // Fade/slide animation for each section’s content
+        // Fade-in animations per section
         sections.forEach((section, index) => {
           if (index === 0) return;
           const content = section.querySelectorAll(".animate-content");
-
           gsap.fromTo(
             content,
             { opacity: 0, y: 50 },
@@ -58,7 +59,6 @@ const Gsap = () => {
       }
     }, containerRef);
 
-    // Rebuild GSAP on resize
     const handleResize = () => {
       ScrollTrigger.refresh();
     };
@@ -72,19 +72,17 @@ const Gsap = () => {
 
   return (
     <div className="bg-black overflow-hidden">
-      {/* Spacer before animation */}
-      <div className="h-[10vh] md:h-[20vh]" />
-
-      {/* Main Scroll Container */}
+     
+      {/* Scroll Container */}
       <div ref={containerRef} className="overflow-hidden">
         <div className="flex flex-col md:flex-row md:w-[300vw]">
-          {/* =================== SECTION 1 =================== */}
+          {/* ========== SECTION 1 ========== */}
           <section
             ref={(el) => (sectionsRef.current[0] = el)}
             className="w-full md:w-screen h-auto md:h-screen flex flex-col md:flex-row items-center justify-center bg-neutral-900"
           >
             <div className="flex flex-col lg:flex-row w-full h-full">
-              {/* Left - Image */}
+              {/* Left Image */}
               <div className="w-full lg:w-1/2 h-[50vh] md:h-full relative overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=1000&q=80"
@@ -93,7 +91,7 @@ const Gsap = () => {
                 />
               </div>
 
-              {/* Right - Text */}
+              {/* Right Text */}
               <div className="w-full lg:w-1/2 h-auto flex items-center justify-center p-6 sm:p-10 md:p-16 bg-gradient-to-b from-black/70 to-black/90">
                 <div className="max-w-2xl space-y-6 md:space-y-8 text-center md:text-left">
                   <div className="inline-block border border-white/30 rounded-full px-5 py-2 mb-2">
@@ -107,9 +105,9 @@ const Gsap = () => {
                   </h2>
 
                   <p className="text-white/70 text-base sm:text-lg leading-relaxed">
-                    Bennings appetite disposed me an at subjects an. To no
-                    indulgence diminution so discovered mr apartments. Are off
-                    under folly death wrote cause.
+                    Bennings appetite disposed me an at subjects an. To no indulgence
+                    diminution so discovered mr apartments. Are off under folly death
+                    wrote cause.
                   </p>
 
                   <div className="grid grid-cols-3 gap-4 mt-8 sm:mt-12">
@@ -136,7 +134,7 @@ const Gsap = () => {
             </div>
           </section>
 
-          {/* =================== SECTION 2 =================== */}
+          {/* ========== SECTION 2 ========== */}
           <section
             ref={(el) => (sectionsRef.current[1] = el)}
             className="w-full md:w-screen h-auto md:h-screen flex items-center justify-center bg-zinc-950 p-6 sm:p-10 md:p-16"
@@ -184,22 +182,20 @@ const Gsap = () => {
                     <h3 className="text-white text-xl sm:text-2xl font-bold mb-2">
                       {card.title}
                     </h3>
-                    <p className="text-white/60 text-sm sm:text-base">
-                      {card.desc}
-                    </p>
+                    <p className="text-white/60 text-sm sm:text-base">{card.desc}</p>
                   </div>
                 ))}
               </div>
             </div>
           </section>
 
-          {/* =================== SECTION 3 =================== */}
+          {/* ========== SECTION 3 ========== */}
           <section
             ref={(el) => (sectionsRef.current[2] = el)}
             className="w-full md:w-screen h-auto md:h-screen flex flex-col md:flex-row items-center justify-center bg-black"
           >
             <div className="flex flex-col lg:flex-row w-full">
-              {/* Left Content */}
+              {/* Left Text */}
               <div className="w-full lg:w-1/2 h-auto bg-zinc-950 flex items-center justify-center p-6 sm:p-10 md:p-16">
                 <div className="max-w-xl text-center md:text-left">
                   <div className="animate-content inline-block border border-white/30 rounded-full px-5 py-2 mb-4 sm:mb-8">
@@ -215,11 +211,7 @@ const Gsap = () => {
                   <div className="space-y-6 sm:space-y-8">
                     {[
                       { title: "Phone", value: "+47 333 78901", icon: "📞" },
-                      {
-                        title: "Official Email",
-                        value: "info@agrul.com",
-                        icon: "📧",
-                      },
+                      { title: "Official Email", value: "info@agrul.com", icon: "📧" },
                     ].map((item, i) => (
                       <div
                         key={i}
@@ -232,9 +224,7 @@ const Gsap = () => {
                           <p className="text-white text-base sm:text-xl font-bold">
                             {item.title}
                           </p>
-                          <p className="text-white/60 text-sm sm:text-base">
-                            {item.value}
-                          </p>
+                          <p className="text-white/60 text-sm sm:text-base">{item.value}</p>
                         </div>
                       </div>
                     ))}
@@ -254,9 +244,6 @@ const Gsap = () => {
           </section>
         </div>
       </div>
-
-      {/* Footer spacer placeholder */}
-      <div className="h-[10vh] bg-black" />
     </div>
   );
 };
