@@ -91,7 +91,7 @@ const Team = () => {
   const currentMembers = teamMembers[selectedRole] || [];
 
   return (
-    <div className="min-h-screen bg-zinc-900 text-white py-16 px-4 md:px-8 lg:px-16">
+    <div className="min-h-screen bg-black text-white py-16 px-4 md:px-8 lg:px-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center mb-16">

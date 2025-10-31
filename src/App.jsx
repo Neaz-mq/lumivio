@@ -8,6 +8,7 @@ import About from "./components/About";
 import Services from "./components/Services";
 import Work from "./components/Work";
 import Team from "./components/Team";
+import Testimonials from "./components/Testimonials";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -44,6 +45,7 @@ const App = () => {
             <Services />
             <Work />
             <Team />
+            <Testimonials />
           </main>
              <ScrollToTop />
         </div>
