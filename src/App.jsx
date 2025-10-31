@@ -7,6 +7,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import About from "./components/About";
 import Services from "./components/Services";
 import Work from "./components/Work";
+import Team from "./components/Team";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -31,8 +32,6 @@ const App = () => {
     };
   }, []);
 
-
-
   return (
     <>
       {loading && <Loader setLoading={setLoading} />}
@@ -44,6 +43,7 @@ const App = () => {
             <About />
             <Services />
             <Work />
+            <Team />
           </main>
              <ScrollToTop />
         </div>
