@@ -23,7 +23,7 @@ const Blog = () => {
   ];
 
   return (
-    <section className="relative z-0 bg-[#161616] text-white py-24 md:py-32 font-sans min-h-screen">
+    <section className="relative z-0 bg-[#161616] text-white py-24 md:py-32   overflow-hidden">
       <div className="max-w-6xl mx-auto px-4">
         
         {/* ====== Section Header ====== */}
