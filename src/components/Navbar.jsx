@@ -6,7 +6,6 @@ import {
   FaBehance,
 } from "react-icons/fa6";
 
-// Inline Close Icon
 const CloseIcon = (props) => (
   <svg
     {...props}
@@ -33,9 +32,9 @@ const SocialIconContainer = ({ children }) => (
 const Navbar = () => {
   const [isMainMenuOpen, setIsMainMenuOpen] = useState(false);
   const [isContactMenuOpen, setIsContactMenuOpen] = useState(false);
-
   const isMenuOpen = isMainMenuOpen || isContactMenuOpen;
 
+  // Prevent body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
     return () => {
@@ -48,8 +47,25 @@ const Navbar = () => {
     setIsContactMenuOpen(false);
   };
 
+  // Smooth scroll handler
+  const handleScrollTo = (id) => {
+    closeMenus();
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const navLinks = [
+    { name: "Home", id: "home" },
+    { name: "About", id: "about" },
+    { name: "Work", id: "work" },
+    { name: "Team", id: "team" },
+    { name: "Testimonials", id: "testimonials" },
+  ];
+
   return (
-  <nav className="fixed top-0 left-0 w-full bg-[#1f1f1f] text-white z-50">
+    <nav className="fixed top-0 left-0 w-full bg-[#1f1f1f] text-white z-50">
       {/* Overlay */}
       <div
         className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300 ${
@@ -77,30 +93,36 @@ const Navbar = () => {
         {/* Logo */}
         <div
           className={`flex-1 flex justify-center md:justify-start items-center transition-all duration-300 ${
-            isContactMenuOpen ? "opacity-30  pointer-events-none" : ""
+            isContactMenuOpen ? "opacity-30 pointer-events-none" : ""
           }`}
         >
-          <div className="flex items-center space-x-2">
-            <div className="w-5 h-5 bg-lime-400 rounded-lg transform -rotate-12 transition-transform duration-300 hover:rotate-6"></div>
-            <span className="text-2xl font-black tracking-tighter">
-              Lumivio
-            </span>
-          </div>
+          <a href="/">
+            <div className="flex items-center space-x-2">
+              <div className="w-5 h-5 bg-lime-400 rounded-lg transform -rotate-12 transition-transform duration-300 hover:rotate-6"></div>
+              <span className="text-2xl font-black tracking-tighter">
+                Lumivio
+              </span>
+            </div>
+          </a>
         </div>
 
         {/* Desktop Nav */}
         <div
           className={`absolute left-1/2 transform -translate-x-1/2 hidden md:flex space-x-8 text-lg font-medium transition-all duration-300 ${
             isContactMenuOpen
-              ? "opacity-30  pointer-events-none"
+              ? "opacity-30 pointer-events-none"
               : "pointer-events-auto"
           }`}
         >
-          {["Home", "About", "Work", "Team", "Testimonials"].map((item) => (
-            <a key={item} href="#" className="relative group transition-colors">
-              {item}
+          {navLinks.map((link) => (
+            <button
+              key={link.id}
+              onClick={() => handleScrollTo(link.id)}
+              className="relative group transition-colors"
+            >
+              {link.name}
               <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-lime-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left blur-[2px]"></span>
-            </a>
+            </button>
           ))}
         </div>
 
@@ -131,19 +153,20 @@ const Navbar = () => {
         >
           <CloseIcon className="w-6 h-6" />
         </button>
+
         <h3 className="text-xl font-bold mb-8 border-b border-gray-700 pb-2">
           Navigation
         </h3>
+
         <div className="space-y-6 text-xl font-medium">
-          {["Home", "Services", "About", "Work", "Team"].map((item) => (
-            <a
-              key={item}
-              href="#"
-              onClick={closeMenus}
-              className="block hover:text-lime-400"
+          {navLinks.map((link) => (
+            <button
+              key={link.id}
+              onClick={() => handleScrollTo(link.id)}
+              className="block hover:text-lime-400 w-full text-left"
             >
-              {item}
-            </a>
+              {link.name}
+            </button>
           ))}
         </div>
       </div>
@@ -160,6 +183,7 @@ const Navbar = () => {
         >
           <CloseIcon className="w-6 h-6" />
         </button>
+
         <h3 className="text-2xl font-bold mb-10 border-b border-lime-400/50 pb-2 text-lime-400">
           Get in Touch
         </h3>
@@ -171,12 +195,14 @@ const Navbar = () => {
             </h4>
             <p className="text-gray-400">123 Design Blvd, Bogura, TX 70240</p>
           </div>
+
           <div>
             <h4 className="font-bold text-lg uppercase tracking-wider mb-1">
               Email
             </h4>
             <p className="text-lime-400">info@lumivio.com</p>
           </div>
+
           <div>
             <h4 className="font-bold text-lg uppercase tracking-wider mb-1">
               Contact
@@ -199,7 +225,6 @@ const Navbar = () => {
                 type="submit"
                 className="w-12 h-12 flex items-center justify-center border-l border-white hover:bg-white hover:text-black transition duration-200"
               >
-                {/* Northeast Arrow Icon ↗ */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-5 h-5"
@@ -220,26 +245,15 @@ const Navbar = () => {
 
           {/* Social Icons */}
           <div className="flex space-x-3 pt-6">
-            <a href="#" className="text-white hover:text-black">
-              <SocialIconContainer>
-                <FaFacebookF />
-              </SocialIconContainer>
-            </a>
-            <a href="#" className="text-white hover:text-black">
-              <SocialIconContainer>
-                <FaXTwitter />
-              </SocialIconContainer>
-            </a>
-            <a href="#" className="text-white hover:text-black">
-              <SocialIconContainer>
-                <FaLinkedinIn />
-              </SocialIconContainer>
-            </a>
-            <a href="#" className="text-white hover:text-black">
-              <SocialIconContainer>
-                <FaBehance />
-              </SocialIconContainer>
-            </a>
+            {[FaFacebookF, FaXTwitter, FaLinkedinIn, FaBehance].map(
+              (Icon, i) => (
+                <a key={i} href="#" className="text-white hover:text-black">
+                  <SocialIconContainer>
+                    <Icon />
+                  </SocialIconContainer>
+                </a>
+              )
+            )}
           </div>
         </div>
       </div>

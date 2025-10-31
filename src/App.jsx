@@ -22,7 +22,6 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Initialize Lenis smooth scroll
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -32,7 +31,6 @@ const App = () => {
       gestureDirection: "vertical",
     });
 
-    // Sync Lenis with GSAP's ScrollTrigger
     function raf(time) {
       lenis.raf(time);
       ScrollTrigger.update();
@@ -40,17 +38,12 @@ const App = () => {
     }
     requestAnimationFrame(raf);
 
-    // Update ScrollTrigger when Lenis scrolls
     lenis.on("scroll", ScrollTrigger.update);
 
-    // Proper GSAP scroller proxy for Lenis v1+
     ScrollTrigger.scrollerProxy(document.body, {
       scrollTop(value) {
-        if (arguments.length) {
-          lenis.scrollTo(value);
-        } else {
-          return window.scrollY;
-        }
+        if (arguments.length) lenis.scrollTo(value);
+        else return window.scrollY;
       },
       getBoundingClientRect() {
         return {
@@ -77,16 +70,41 @@ const App = () => {
       {!loading && (
         <div className="relative">
           <Navbar />
+
           <main className="relative">
-            <Hero />
-            <About />
-            <Services />
-            <Work />
-            <Team />
-            <Testimonials />
-            <Gsap />
-            <Blog />
+            <section id="home">
+              <Hero />
+            </section>
+
+            <section id="about">
+              <About />
+            </section>
+
+            <section id="services">
+              <Services />
+            </section>
+
+            <section id="work">
+              <Work />
+            </section>
+
+            <section id="team">
+              <Team />
+            </section>
+
+            <section id="testimonials">
+              <Testimonials />
+            </section>
+
+            <section id="motion">
+              <Gsap />
+            </section>
+
+            <section id="blog">
+              <Blog />
+            </section>
           </main>
+
           <ScrollToTop />
           <Footer />
         </div>
