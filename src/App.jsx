@@ -96,17 +96,17 @@ const App = () => {
               <Testimonials />
             </section>
 
-            {/* <section id="motion">
+            <section id="motion">
               <Gsap />
-            </section> */}
+            </section>
 
-            {/* <section id="blog">
+            <section id="blog">
               <Blog />
-            </section> */}
+            </section>
           </main>
 
           <ScrollToTop />
-          {/* <Footer /> */}
+          <Footer />
         </div>
       )}
     </>
