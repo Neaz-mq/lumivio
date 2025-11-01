@@ -18,7 +18,7 @@ const Hero = () => {
 
           {/* Dexus Agency + Line */}
           <div className="flex items-center mt-6 justify-center lg:justify-start">
-            <span className="font-semibold text-lg">DEXUS AGENCY</span>
+            <span className="font-semibold text-lg">LUMIVIO AGENCY</span>
             <span className="hidden sm:block flex-1 border-t border-gray-500 ml-4"></span>
           </div>
 

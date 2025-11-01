@@ -80,33 +80,33 @@ const App = () => {
               <About />
             </section>
 
-            <section id="services">
+            {/* <section id="services">
               <Services />
-            </section>
+            </section> */}
 
-            <section id="work">
+            {/* <section id="work">
               <Work />
-            </section>
+            </section> */}
 
-            <section id="team">
+            {/* <section id="team">
               <Team />
-            </section>
+            </section> */}
 
-            <section id="testimonials">
+            {/* <section id="testimonials">
               <Testimonials />
-            </section>
+            </section> */}
 
-            <section id="motion">
+            {/* <section id="motion">
               <Gsap />
-            </section>
+            </section> */}
 
-            <section id="blog">
+            {/* <section id="blog">
               <Blog />
-            </section>
+            </section> */}
           </main>
 
           <ScrollToTop />
-          <Footer />
+          {/* <Footer /> */}
         </div>
       )}
     </>
