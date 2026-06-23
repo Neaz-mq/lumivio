@@ -207,7 +207,7 @@ const Navbar = () => {
             <h4 className="font-bold text-lg uppercase tracking-wider mb-1">
               Contact
             </h4>
-            <p className="text-gray-400">+880-178-5286-936</p>
+            <p className="text-gray-400">+880-33-446-222</p>
           </div>
 
           {/* Subscribe */}
